@@ -1,12 +1,12 @@
 const express = require('express');
-const productoSchema = require('../models/productos'); 
+const categoriaSchema = require('../models/categoria'); 
 
 // Constructor
 const router = express.Router();
 
 // Crear producto
-router.post('/productos', (req, res) => { 
-    const producto = new productoSchema(req.body); // Cambio de "usuarioSchema" a "productoSchema"
+router.post('/categoria', (req, res) => { 
+    const producto = new categoriaSchema(req.body); // Cambio de "usuarioSchema" a "productoSchema"
     producto
         .save()
         .then((data) => res.json(data))
@@ -14,36 +14,36 @@ router.post('/productos', (req, res) => {
 });
 
 // Obtener todos los productos
-router.get('/productos', (req, res) => {
-    productoSchema
+router.get('/categoria', (req, res) => {
+    categoriaSchema
         .find()
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
 
 // Obtener un producto
-router.get('/productos/:id', (req, res) => { 
+router.get('/categoria/:id', (req, res) => { 
     const { id } = req.params;
-    productoSchema
+    categoriaSchema
         .findById(id)
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
 
 // Actualizar un producto
-router.put('/productos/:id', (req, res) => { 
+router.put('/categoria/:id', (req, res) => { 
     const { id } = req.params;
-    const { nombre, precio, cantidad, categoria, descripcion } = req.body;
-    productoSchema
-        .updateOne({ _id: id }, { $set: { nombre, precio, cantidad, categoria, descripcion } })
+    const { nombre, categoria, descripcion } = req.body;
+    categoriaSchema
+        .updateOne({ _id: id }, { $set: { nombre, categoria, descripcion } })
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
 
 // Eliminar un producto
-router.delete('/productos/:id', (req, res) => { 
+router.delete('/categoria/:id', (req, res) => { 
     const { id } = req.params;
-    productoSchema
+    categoriaSchema
         .deleteOne({ _id: id })
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
